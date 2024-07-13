@@ -15,32 +15,23 @@ RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Cen
 # 安装 SSH 服务
 RUN yum install -y openssh-server && \
     yum clean all
-    
-# 创建 SSH 目录并设置权限
+
+# 创建 SSH 目录并设置 SSH 配置
 RUN mkdir /var/run/sshd && \
-    chmod 755 /var/run/sshd && \
+    mkdir -p /root/.ssh && \
+    chmod 700 /root/.ssh && \
     ssh-keygen -A
 
-# 配置 SSH 以允许公钥认证
-RUN sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+# 复制本地的公钥到容器的 authorized_keys 文件中
+COPY id_rsa.pub /root/.ssh/authorized_keys
+RUN chmod 600 /root/.ssh/authorized_keys
 
-# 允许 rocketmq 用户使用 SSH 免密登录
-RUN mkdir -p /home/rocketmq/.ssh && \
-    chmod 700 /home/rocketmq/.ssh && \
-    chown rocketmq:rocketmq /home/rocketmq/.ssh
+# 添加启动脚本
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
-# 添加公钥到 authorized_keys
-COPY id_rsa.pub /home/rocketmq/.ssh/authorized_keys
-RUN chmod 600 /home/rocketmq/.ssh/authorized_keys && \
-    chown rocketmq:rocketmq /home/rocketmq/.ssh/authorized_keys
+# 设置 SSH 服务为前台运行  /usr/sbin/sshd是 OpenSSH 服务的可执行文件路径
+CMD ["/usr/sbin/sshd", "-D"]
 
-
-# 启动 SSH 服务
-COPY start-sshd.sh /usr/local/bin/start-sshd.sh
-RUN chmod +x /usr/local/bin/start-sshd.sh
-
-ENTRYPOINT ["/usr/local/bin/start-sshd.sh"]
-
-
-EXPOSE 22
-
+# 暴露 SSH 端口
+EXPOSE 22 
