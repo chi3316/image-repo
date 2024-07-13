@@ -18,12 +18,12 @@ RUN chmod 600 /root/.ssh/id_rsa && \
     chmod 644 /root/.ssh/id_rsa.pub
 
 # 创建启动脚本
-COPY start-openchaos.sh /app/start-openchaos.sh
+COPY start-openchaos.sh /chaos-framework/start-openchaos.sh
 RUN chmod +x /chaos-framework/start-openchaos.sh
 
 # 暴露端口
 EXPOSE 8080
 
 # 运行 OpenChaos
-CMD ["/bin/bash", "-c", "/chaos-framework/start-openchaos.sh"]
+CMD ["/bin/sh", "-c", "/chaos-framework/start-openchaos.sh"]
 

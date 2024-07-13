@@ -22,9 +22,11 @@ RUN mkdir /var/run/sshd && \
     chmod 700 /root/.ssh && \
     ssh-keygen -A
 
-# 复制本地的公钥到容器的 authorized_keys 文件中
-COPY id_rsa.pub /root/.ssh/authorized_keys
-RUN chmod 600 /root/.ssh/authorized_keys
+# 配置 SSH 允许空密码登录
+RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
+
+# 确保 root 用户密码为空
+RUN passwd -d root
 
 # 添加启动脚本
 COPY start.sh /usr/local/bin/start.sh
