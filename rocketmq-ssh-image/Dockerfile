@@ -1,5 +1,7 @@
 FROM apache/rocketmq:latest
 
+ENV WORKDIR /home/rocketmq/rocketmq-5.2.0/bin
+
 USER root
 
 # 备份原有的 YUM 仓库配置
