@@ -23,8 +23,9 @@ RUN mkdir /var/run/sshd && \
     chmod 700 /home/rocketmq/.ssh && \
     ssh-keygen -A
 
-# 配置 SSH 允许空密码登录
-RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
+# 配置 SSH 允许空密码登录并修改端口为2222
+RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config && \
+    sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
 
 # 设置 rocketmq 用户密码为空
 RUN passwd -d rocketmq
