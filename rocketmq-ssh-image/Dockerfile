@@ -1,39 +1,45 @@
 FROM apache/rocketmq:latest
 
-# 切换到 root 用户
 USER root
 
 # 备份原有的 YUM 仓库配置
 RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak
 
-# 设置阿里云 YUM 镜像仓库地址并将 http 改为 https
+# 设置阿里云 YUM 镜像仓库地址
 RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && \
     sed -i 's|http://|https://|g' /etc/yum.repos.d/CentOS-Base.repo && \
     yum clean all && \
     yum makecache
 
-# 安装 SSH 服务
-RUN yum install -y openssh-server && \
+# 安装 SSH 服务和 unzip
+RUN yum install -y openssh-server unzip && \
     yum clean all
 
-# 创建 SSH 目录并设置 SSH 配置
+# SSH 相关配置
 RUN mkdir /var/run/sshd && \
-    mkdir -p /root/.ssh && \
-    chmod 700 /root/.ssh && \
+    mkdir -p /home/rocketmq/.ssh && \
+    chmod 700 /home/rocketmq/.ssh && \
     ssh-keygen -A
 
 # 配置 SSH 允许空密码登录
 RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
 
-# 确保 root 用户密码为空
-RUN passwd -d root
+# 设置 rocketmq 用户密码为空
+RUN passwd -d rocketmq
 
-# 添加启动脚本
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# 确保 rocketmq 用户拥有相关权限
+RUN chown -R rocketmq:rocketmq /home/rocketmq /home/rocketmq/.ssh /var/run/sshd
+RUN chown root:rocketmq /usr/sbin/sshd && chmod 750 /usr/sbin/sshd
+RUN chown -R root:rocketmq /etc/ssh && chmod -R 750 /etc/ssh
 
-# 设置 SSH 服务为前台运行  /usr/sbin/sshd是 OpenSSH 服务的可执行文件路径
+# 启动脚本
+COPY mqbroker-ssh ${WORKDIR}/mqbroker-ssh
+COPY mqnamesrv-ssh ${WORKDIR}/mqnamesrv-ssh
+RUN chmod +x ${WORKDIR}/mqbroker-ssh ${WORKDIR}/mqnamesrv-ssh
+
+USER rocketmq
+
+EXPOSE 22
+
 CMD ["/usr/sbin/sshd", "-D"]
 
-# 暴露 SSH 端口
-EXPOSE 22 
