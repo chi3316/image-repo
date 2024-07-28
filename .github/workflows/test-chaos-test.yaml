@@ -4,9 +4,15 @@ on:
     branches:
       - main
 
+env:
+  DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy: 
+      matrix:
+        version: [2.2]
     steps:
       - uses: chi3316/rocketmq-test-tool@ceae9eaced933b1eb206fc1cc8de9a3db917a2f2
         name: Deploy rocketmq
@@ -18,6 +24,19 @@ jobs:
           chart-branch: "master"
           chart-path: "./rocketmq-k8s-helm"
           job-id: ${{ strategy.job-index }}
+          helm-values: |
+            nameserver:
+              image:
+                repository: ${{env.DOCKER_REPO}}
+                tag: ${{ matrix.version }}
+            broker:
+              image:
+                repository: ${{env.DOCKER_REPO}}
+                tag: ${{ matrix.version }}
+            proxy:
+              image:
+                repository: ${{env.DOCKER_REPO}}
+                tag: ${{ matrix.version }}
   chaos-test:
     runs-on: ubuntu-latest
     needs: deploy
