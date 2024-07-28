@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy: 
       matrix:
-        version: [2.2]
+        version: [v2.2]
     steps:
       - uses: chi3316/rocketmq-test-tool@ceae9eaced933b1eb206fc1cc8de9a3db917a2f2
         name: Deploy rocketmq
