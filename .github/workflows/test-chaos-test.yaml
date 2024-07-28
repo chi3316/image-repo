@@ -40,16 +40,22 @@ jobs:
   chaos-test:
     runs-on: ubuntu-latest
     needs: deploy
+    timeout-minutes: 60
     steps:
       - uses: chi3316/rocketmq-test-tool@bba0c66655a6da6c14dcaab587921cf24f506dac
         name: Chaos test
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+      - name: Upload test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: chaos-test-report
+          path: /root/chaos-test/report
   clean:
     if: always()
     name: Clean
-    needs: [deploy, chaos-test]
+    needs: deploy
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
