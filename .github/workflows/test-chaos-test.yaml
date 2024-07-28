@@ -12,7 +12,7 @@ jobs:
         name: Deploy rocketmq
         with:
           action: "deploy"
-          ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
+          ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
           test-version: "v0.1"
           chart-git: "https://ghproxy.com/https://github.com/apache/rocketmq-docker.git"
           chart-branch: "master"
