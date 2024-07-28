@@ -41,10 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: chi3316/rocketmq-test-tool@439269ae52309e9a0521428563663f16c2985114
+      - uses: chi3316/rocketmq-test-tool@00231defc5355f3f146310fc7b604250a67fdf69
         name: Chaos test
         with:
           action: "chaos-test"
+          ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
   clean:
     if: always()
     name: Clean
