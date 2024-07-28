@@ -10,11 +10,11 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    strategy: 
+    strategy:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@ceae9eaced933b1eb206fc1cc8de9a3db917a2f2
+      - uses: chi3316/rocketmq-test-tool@b6559ffc737902985fcceb937ffce213e30ba0c9
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: chi3316/rocketmq-test-tool@ceae9eaced933b1eb206fc1cc8de9a3db917a2f2
+      - uses: chi3316/rocketmq-test-tool@b6559ffc737902985fcceb937ffce213e30ba0c9
         name: Chaos test
         with:
           action: "chaos-test"
