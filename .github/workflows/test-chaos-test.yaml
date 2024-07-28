@@ -14,7 +14,7 @@ jobs:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@b6559ffc737902985fcceb937ffce213e30ba0c9
+      - uses: chi3316/rocketmq-test-tool@cbc7295c85b05cefd38214e75890d90bdcd783a9
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -41,7 +41,20 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: chi3316/rocketmq-test-tool@b6559ffc737902985fcceb937ffce213e30ba0c9
+      - uses: chi3316/rocketmq-test-tool@cbc7295c85b05cefd38214e75890d90bdcd783a9
         name: Chaos test
         with:
           action: "chaos-test"
+  clean:
+    if: always()
+    name: Clean
+    needs: [deploy, chaos-test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: chi3316/rocketmq-test-tool@cbc7295c85b05cefd38214e75890d90bdcd783a9
+        name: clean
+        with:
+          action: "clean"
+          ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+          job-id: ${{ strategy.job-index }}
