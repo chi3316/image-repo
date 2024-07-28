@@ -8,7 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: apache/rocketmq-test-tool@7d84d276ad7755b1dc5cf9657a7a9bff6ae6d288
+      - uses: chi3316/rocketmq-test-tool@c6e7fc5ca0ef6006d16cb36defd52fa050a51065
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
-      - uses: chi3316/rocketmq-test-tool@2cc5f8269292db7667ffabe2c68d05ff0268f450
+      - uses: chi3316/rocketmq-test-tool@c6e7fc5ca0ef6006d16cb36defd52fa050a51065
         name: Chaos test
         with:
           action: "chaos-test"
