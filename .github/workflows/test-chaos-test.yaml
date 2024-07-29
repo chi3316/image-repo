@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@f277663ad9684cb67ea579feacb773cb40d63dcf
+      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -43,7 +43,7 @@ jobs:
     needs: deploy
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@f277663ad9684cb67ea579feacb773cb40d63dcf
+      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
         name: Chaos test
         with:
           action: "chaos-test"
@@ -56,11 +56,11 @@ jobs:
   clean:
     if: always()
     name: Clean
-    needs: [deploy,chaos-test]
+    needs: [deploy, chaos-test]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@f277663ad9684cb67ea579feacb773cb40d63dcf
+      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
         name: clean
         with:
           action: "clean"
