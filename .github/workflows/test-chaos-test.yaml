@@ -48,11 +48,13 @@ jobs:
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+      - run: mkdir pwd
+      - run: echo hello > world.txt
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
-          path: /home/runner/work/image-repo/image-repo/chaos-test-report/chaos-mesh-fault
+          path: world.txt
   clean:
     if: always()
     name: Clean
