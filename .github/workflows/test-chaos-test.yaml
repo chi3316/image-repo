@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: chaos-test-report
-          path: /home/runner/work/image-repo/image-repo/chaos-test-report
+          path: /home/runner/work/image-repo/image-repo/chaos-test-report/*
   clean:
     if: always()
     name: Clean
