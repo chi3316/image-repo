@@ -49,10 +49,10 @@ jobs:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
       - name: Upload test report
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
-          path: /home/runner/work/image-repo/image-repo/chaos-test-report/*
+          path: /home/runner/work/image-repo/image-repo/chaos-test-report/chaos-mesh-fault
   clean:
     if: always()
     name: Clean
