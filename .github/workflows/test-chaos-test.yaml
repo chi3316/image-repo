@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
+      - uses: chi3316/rocketmq-test-tool@977d3d390027f3be221a5e0a0e0d544ba5da039b
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -43,16 +43,18 @@ jobs:
     needs: deploy
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
+      - uses: chi3316/rocketmq-test-tool@977d3d390027f3be221a5e0a0e0d544ba5da039b
         name: Chaos test
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+      - name: Copy test report to working directory
+        run: cp -r /root/chaos-test/report ${{ github.workspace }}/chaos-test-report
       - name: Upload test report
         uses: actions/upload-artifact@v2
         with:
           name: chaos-test-report
-          path: /root/chaos-test/report
+          path: ${{ github.workspace }}/chaos-test-report
   clean:
     if: always()
     name: Clean
@@ -60,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@813c55aec132495902c9b9fb8b8bc3754c9af826
+      - uses: chi3316/rocketmq-test-tool@977d3d390027f3be221a5e0a0e0d544ba5da039b
         name: clean
         with:
           action: "clean"
