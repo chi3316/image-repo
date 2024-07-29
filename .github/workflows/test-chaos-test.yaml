@@ -43,7 +43,7 @@ jobs:
     needs: deploy
     timeout-minutes: 20
     steps:
-      - uses: chi3316/rocketmq-test-tool@83e09aa2762b6832908bb9e9c28a0076f4e344fd
+      - uses: chi3316/rocketmq-test-tool@108df8b59ace509c2072d8335527960c3e031c15
         name: Chaos test
         with:
           action: "chaos-test"
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
-          path: /home/runner/work/image-repo/chaos-test-report/
+          path: chaos-test-report/
   clean:
     if: always()
     name: Clean
