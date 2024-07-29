@@ -43,18 +43,18 @@ jobs:
     needs: deploy
     timeout-minutes: 20
     steps:
-      - uses: chi3316/rocketmq-test-tool@04d4ed49451edc80057bc2b19a66c476b0b8c0d2
+      - uses: chi3316/rocketmq-test-tool@83e09aa2762b6832908bb9e9c28a0076f4e344fd
         name: Chaos test
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
       - run: pwd
-      - run: echo hello > world.txt
+      - run: ls
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
-          path: /home/runner/work/image-repo/image-repo/chaos-test-report/
+          path: /home/runner/work/image-repo/chaos-test-report/
   clean:
     if: always()
     name: Clean
