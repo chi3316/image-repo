@@ -61,7 +61,7 @@ jobs:
     needs: deploy
     timeout-minutes: 20
     steps:
-      - uses: chi3316/rocketmq-test-tool@857bdd5e8d88cdd963b09fb1e2232abd95c679ac
+      - uses: chi3316/rocketmq-test-tool@f1f7df89a0c3a926a51a4d9ae01877f6b7d0e99c
         name: Chaos test
         with:
           action: "chaos-test"
