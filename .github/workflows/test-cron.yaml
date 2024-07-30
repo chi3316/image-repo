@@ -1,0 +1,27 @@
+name: Test chaos-test
+on:
+  push:
+    branches:
+      - test-cron
+
+env:
+  DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh
+
+jobs:
+  test-cron:
+    runs-on: ubuntu-latest
+    needs: deploy
+    timeout-minutes: 5
+    steps:
+      - uses: chi3316/rocketmq-test-tool@99a673b7ea4d001fa6f5452020ed100610a62e41
+        name: Chaos test
+        with:
+          action: "cron-test"
+          ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+      - run: pwd
+      - run: ls
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cron-log
+          path: test_script.log
