@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: chi3316/rocketmq-test-tool@dac86d8eb3cda1fe536321ce640a4f7b5b7a2786
+      - uses: chi3316/rocketmq-test-tool@6d54a9e493d009a50663deb8df57e442bd19d81d
         name: Chaos test
         with:
           action: "cron-test"
