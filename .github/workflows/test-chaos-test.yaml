@@ -44,7 +44,7 @@ jobs:
     needs: deploy
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@f68a5d3b36be2395ab007edbe8a1c506f80ef5f1
+      - uses: chi3316/rocketmq-test-tool@90e314d3b405c9c945cbe5071504edb14a5ddff7
         name: Chaos test
         with:
           action: "chaos-test"
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@f68a5d3b36be2395ab007edbe8a1c506f80ef5f1
+      - uses: chi3316/rocketmq-test-tool@90e314d3b405c9c945cbe5071504edb14a5ddff7
         name: clean
         with:
           action: "clean"
