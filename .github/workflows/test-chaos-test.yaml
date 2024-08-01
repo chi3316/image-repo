@@ -44,14 +44,14 @@ jobs:
     needs: deploy
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@129cf0d18a5f5c71ab7750510ad05c29213a540b
+      - uses: chi3316/rocketmq-test-tool@2ee124399f7c94fcb16286d14d8e7b20adf5a7c1
         name: Chaos test
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
           job-id: ${{ strategy.job-index }}
-      - run: pwd
-      - run: ls
+          openchaos-driver: ".github/chaos-configs/rocketmq.yaml"
+          chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
