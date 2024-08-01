@@ -42,7 +42,7 @@ jobs:
   chaos-test:
     runs-on: ubuntu-latest
     needs: deploy
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: chi3316/rocketmq-test-tool@19069ca9ea5c9fff3018154211c19f5135369cec
         name: Chaos test
