@@ -49,6 +49,7 @@ jobs:
         with:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+          job-id: ${{ strategy.job-index }}
       - run: pwd
       - run: ls
       - name: Upload test report
