@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@19069ca9ea5c9fff3018154211c19f5135369cec
+      - uses: chi3316/rocketmq-test-tool@e495edd24c422954b4c72fbbea9dcd58d10bdf9d
         name: Deploy rocketmq
         with:
           action: "deploy"
