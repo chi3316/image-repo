@@ -49,7 +49,7 @@ jobs:
       - name: Load configuration
         run: |
           echo "OPENCHAOS_DRIVER=$(cat .github/chaos-configs/rocketmq.yaml)" >> $GITHUB_ENV
-          echo "FAULE_FILE=$(cat network-delay.yamlnetwork-delay.yaml)" >> $GITHUB_ENV
+          echo "FAULE_FILE=$(cat network-delay.yaml)" >> $GITHUB_ENV
       - uses: chi3316/rocketmq-test-tool@476026f7b0c8312e38866f06e545e70a4bd93966
         name: Chaos test
         with:
