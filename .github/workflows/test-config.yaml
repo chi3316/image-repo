@@ -5,6 +5,24 @@ on:
       - test-config
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Creating kind cluster
+        uses: helm/kind-action@v1.0.0-rc.1
+
+      - name: Print cluster information
+        run: |
+          kubectl config view
+          kubectl cluster-info
+          kubectl get nodes
+          kubectl get pods -n kube-system
+          helm version
+          kubectl version
+          sleep 20
+          base_64=YXBpVmVyc2lvbjogdjEKa2luZDogQ29uZmlnTWFwCm1ldGFkYXRhOgogIG5hbWU6IHJvY2tldG1xLWNvbmZpZ21hcApkYXRhOgogIHJvY2tldG1xLnlhbWw6IHwKICAgIG5hbWU6IFJvY2tldE1RCiAgICBkcml2ZXJDbGFzczogaW8ub3BlbmNoYW9zLmRyaXZlci5yb2NrZXRtcS5Sb2NrZXRNUURyaXZlcgogICAgCiAgICBlbmRUb0VuZExhdGVuY3lDaGVjazogdHJ1ZQogICAgCiAgICAjIFJvY2tldE1RIGNsdXN0ZXIgY29uZmlndXJhdGlvbgogICAgCiAgICAjIE5vZGVzIGZvciBicm9rZXIKICAgIG5vZGVzOiAKICAgIC0gcm9ja2V0bXEtYnJva2VyLTAtc3NoCiAgICAtIHJvY2tldG1xLWJyb2tlci0xLXNzaAogICAgLSByb2NrZXRtcS1icm9rZXItMi1zc2gKICAgIAogICAgIyBOb2RlcyBmb3IgbmFtZXNlcnZlcgogICAgbWV0YU5vZGVzOgogICAgLSBuYW1lc2VydmVyLXNzaAogICAgCiAgICAjIFJvY2tldE1RIGNvbmZpZ3VyYXRpb24KICAgIHJvY2tldG1xVmVyc2lvbjogNS4yLjAKICAgIGluc3RhbGxEaXI6IC9ob21lL3JvY2tldG1xL3JvY2tldG1xLTUuMi4wICMgeW91IGNvdWxkIHNldCBleGlzdGVudCBsb2NhdGlvbiBmb3IgUm9ja2V0TVEKICAgIG5hbWVTZXJ2ZXJQb3J0OiA5ODc2CiAgICAKICAgICMgUm9ja2V0TVEgY2xpZW50IGNvbmZpZ3VyYXRpb24KICAgIGNsdXN0ZXJOYW1lOiBEZWZhdWx0Q2x1c3RlciAjIHNhbWUgdmFsdWUgYXMgdGhlIGNvbmZpZyBpbiBicm9rZXIucHJvcGVydGllcwogICAgdmlwQ2hhbm5lbEVuYWJsZWQ6IGZhbHNlCiAgICAKICAgICMgUm9ja2V0TVEgYnJva2VyIGNvbmZpZ3VyYXRpb24KICAgIGJyb2tlckNsdXN0ZXJOYW1lOiBEZWZhdWx0Q2x1c3RlcgogICAgYnJva2VyTmFtZTogcm9ja2V0bXEtYnJva2VyLTAKICAgIHN0b3JlUGF0aFJvb3REaXI6IC9ob21lL3JvY2tldG1xL3N0b3JlCiAgICBzdG9yZVBhdGhDb21taXRMb2c
+          echo "$base_64" | base64 --decode > /tmp/controller.yaml
+          kubectl apply -f /tmp/controller.yaml
   config-test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
