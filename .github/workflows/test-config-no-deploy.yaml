@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool@9f9420e7496c636df8c6a3e8f60ae1ce88b99191
+      - uses: chi3316/rocketmq-test-tool@9801210d48cc203fa9860f0562d0b1d6946f22e0
         name: test config
         with:
           action: "test-config"
