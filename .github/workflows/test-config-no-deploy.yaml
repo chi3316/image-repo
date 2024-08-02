@@ -1,0 +1,22 @@
+name: Test chaos-test
+on:
+  push:
+    branches:
+      - test-config
+
+jobs:
+  config-test:
+  runs-on: ubuntu-latest
+  needs: deploy
+  timeout-minutes: 10
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - uses: chi3316/rocketmq-test-tool@9f9420e7496c636df8c6a3e8f60ae1ce88b99191
+      name: test config
+      with:
+        action: "test-config"
+        ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
+        job-id: ${{ strategy.job-index }}
+        chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
+        openchaos-driver: ".github/chaos-configs/rocketmq-driver.yaml"
