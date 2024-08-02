@@ -44,6 +44,8 @@ jobs:
     needs: deploy
     timeout-minutes: 10
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - uses: chi3316/rocketmq-test-tool@fbd64c0c47ae0cd618270d0e42dd20801260c4bc
         name: Chaos test
         with:
