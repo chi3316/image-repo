@@ -52,8 +52,8 @@ jobs:
           action: "chaos-test"
           ask-config: "${{ secrets.ACK_CONFIG_VIRGINA }}"
           job-id: ${{ strategy.job-index }}
-          openchaos-driver: "./github/chaos-configs/test.yaml"
-          chaos-mesh-fault-file: "./github/chaos-configs/network-delay.yaml"
+          openchaos-driver: ".github/chaos-configs/test.yaml"
+          chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
       - run: pwd
       - run: ls
       - name: Upload test report
