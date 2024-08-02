@@ -2,7 +2,7 @@ name: Test chaos-test
 on:
   push:
     branches:
-      - main
+      - test-config
 
 env:
   DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh
@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: Load configuration from files
         run: |
           echo "OPENCHAOS_DRIVER=$(cat .github/chaos-configs/rocketmq.yaml)" >> $GITHUB_ENV
