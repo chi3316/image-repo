@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.2]
     steps:
-      - uses: chi3316/rocketmq-test-tool@c2b2b99c77a74bfd81a0d315b7eea0e655ed32ad
+      - uses: chi3316/rocketmq-test-tool@4234d95449d70d031f13bc2993104814d47fe449
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool@c2b2b99c77a74bfd81a0d315b7eea0e655ed32ad
+      - uses: chi3316/rocketmq-test-tool@4234d95449d70d031f13bc2993104814d47fe449
         name: Chaos test
         with:
           action: "chaos-test"
@@ -54,6 +54,10 @@ jobs:
           job-id: ${{ strategy.job-index }}
           openchaos-driver: ".github/chaos-configs/test.yaml"
           chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
+          fault-scheduler-cron: "* * * * *"
+          openchaos-args: "-t 180"
+          fault-durition: "30"
+
       - run: pwd
       - run: ls
       - name: Upload test report
@@ -68,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool@c2b2b99c77a74bfd81a0d315b7eea0e655ed32ad
+      - uses: chi3316/rocketmq-test-tool@4234d95449d70d031f13bc2993104814d47fe449
         name: clean
         with:
           action: "clean"
