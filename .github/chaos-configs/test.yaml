@@ -6,8 +6,7 @@ endToEndLatencyCheck: true
 # RocketMQ cluster configuration
 
 # Nodes for broker
-# <statefulset_name>-<ordinal>.<headless_service_name>.<namespace>.svc.cluster.local
-
+# if the app is statefulSet , use <statefulset_name>-<ordinal>.<headless_service_name>.<namespace>.svc.cluster.local
 nodes:
   - ${app}-broker-0.${app}-broker.${ns}.svc.cluster.local
   - ${app}-broker-1.${app}-broker.${ns}.svc.cluster.local
