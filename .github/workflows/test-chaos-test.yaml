@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool@aa5d1518228157ab75d5d19e40080bbc5d7dd77d
+      - uses: chi3316/rocketmq-test-tool@6f8e650276100336174a239a3baccc1f77a7fecb
         name: Chaos test
         with:
           action: "chaos-test"
@@ -54,7 +54,7 @@ jobs:
           job-id: ${{ strategy.job-index }}
           openchaos-driver: ".github/chaos-configs/test.yaml"
           chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
-          fault-scheduler-cron: "* * * * *"
+          fault-scheduler-interval: "30"
           openchaos-args: "-t 180"
           fault-durition: "30"
 
