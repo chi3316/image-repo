@@ -11,7 +11,7 @@ spec:
       - ${ns}
     labelSelectors:
       "app.kubernetes.io/name": "broker"
-      "app.kubernetes.io/instance": "${app}"
+      "app.kubernetes.io/instance": "rocketmq"
   delay:
     latency: "100ms"
   duration: "30s"
