@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool@2c8720763d00ba6bd9775d9558a445b4ff138fe3
+      - uses: chi3316/rocketmq-test-tool@49733344e3026539a47e9d5cfab647935d0eaa01
         name: Chaos test
         with:
           action: "chaos-test"
