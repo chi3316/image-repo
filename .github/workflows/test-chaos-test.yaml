@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool@40dd09eb95fd7d6c87d988c7821b5638addad415
+      - uses: chi3316/rocketmq-test-tool@65d2f71470c409475aeff755fdffc2c2b86b6afd
         name: Chaos test
         with:
           action: "chaos-test"
@@ -57,14 +57,15 @@ jobs:
           fault-scheduler-cron: "* * * * *"
           openchaos-args: "-t 240"
           fault-durition: "30"
-
-      - run: pwd
-      - run: ls
+          helm-chart-repo: "https://chi3316.github.io/my_chart/"
+          helm-chart-version: "0.0.3"
+          helm-chart: "rocketmq"
       - name: Upload test report
         uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
           path: chaos-test-report/
+        continue-on-error: true
   clean:
     if: always()
     name: Clean
