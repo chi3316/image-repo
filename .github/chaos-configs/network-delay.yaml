@@ -4,7 +4,8 @@ metadata:
   name: network-delay
 spec:
   action: delay
-  mode: one
+  mode: fixed
+  value: "2"
   selector:
     namespaces:
       - ${ns}
