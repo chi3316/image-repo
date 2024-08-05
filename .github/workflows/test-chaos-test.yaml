@@ -25,19 +25,9 @@ jobs:
           chart-branch: "master"
           chart-path: "./rocketmq-k8s-helm"
           job-id: ${{ strategy.job-index }}
-          helm-values: |
-            nameserver:
-              image:
-                repository: ${{env.DOCKER_REPO}}
-                tag: ${{ matrix.version }}
-            broker:
-              image:
-                repository: ${{env.DOCKER_REPO}}
-                tag: ${{ matrix.version }}
-            proxy:
-              image:
-                repository: ${{env.DOCKER_REPO}}
-                tag: ${{ matrix.version }}
+          helm-chart-repo: "https://chi3316.github.io/my_chart/"
+          helm-chart-version: "0.0.3"
+          helm-chart: "rocketmq"
 
   chaos-test:
     runs-on: ubuntu-latest
@@ -57,9 +47,6 @@ jobs:
           fault-scheduler-interval: "30"
           openchaos-args: "-t 240"
           fault-durition: "30"
-          helm-chart-repo: "https://chi3316.github.io/my_chart/"
-          helm-chart-version: "0.0.3"
-          helm-chart: "rocketmq"
           node-lable: "app.kubernetes.io/name=broker"
           meta-node-lable: "app.kubernetes.io/name=nameserver"
       - name: Upload test report
