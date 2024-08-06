@@ -15,9 +15,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          pass: ${{ secrets.PASS }}
 
       - name: Start SSH tunnel to jump server
         run: |
