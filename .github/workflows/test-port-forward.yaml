@@ -15,11 +15,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up SSH agent
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
-          user: ${{ secrets.USER }}
-          pass: ${{ secrets.PASS }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          script: whoami
 
       - name: Start SSH tunnel to jump server
         run: |
