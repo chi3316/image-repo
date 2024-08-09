@@ -7,12 +7,9 @@ on:
   #schedule:
   #  - cron: "0 18 * * *" # TimeZone: UTC 0
 
-concurrency:
-  group: rocketmq-${{ github.ref }}
-
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
-  DOCKER_REPO: apache/rocketmq-ci
+  DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci
 
 jobs:
   deploy:
@@ -22,7 +19,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        version: [develop-439f80a2-58f4-40dd-a3c1-a42d5d204726-ubuntu]
+        version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
       - uses: chi3316/rocketmq-test-tool@f222c8f6f5fe5c163c020d3329fc64afabb648b8
         name: Deploy rocketmq
@@ -55,7 +52,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        version: [develop-439f80a2-58f4-40dd-a3c1-a42d5d204726-ubuntu]
+        version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
       - uses: chi3316/rocketmq-test-tool@f222c8f6f5fe5c163c020d3329fc64afabb648b8
         name: e2e test
@@ -93,7 +90,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        version: [develop-439f80a2-58f4-40dd-a3c1-a42d5d204726-ubuntu]
+        version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
       - uses: chi3316/rocketmq-test-tool@f222c8f6f5fe5c163c020d3329fc64afabb648b8
         name: clean
