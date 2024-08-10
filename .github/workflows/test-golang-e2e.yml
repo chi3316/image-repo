@@ -4,8 +4,6 @@ on:
   push:
     branches: your-branch
   workflow_dispatch:
-  #schedule:
-  #  - cron: "0 18 * * *" # TimeZone: UTC 0
 
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
@@ -21,7 +19,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@5c8c81309e83b1fbbfdf31505ddf9c4a34a027cf
+      - uses: chi3316/rocketmq-test-tool@9d9eb9d604b28f89216570bb7caa494a000df0aa
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -54,7 +52,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@5c8c81309e83b1fbbfdf31505ddf9c4a34a027cf
+      - uses: chi3316/rocketmq-test-tool@9d9eb9d604b28f89216570bb7caa494a000df0aa
         name: e2e test
         with:
           action: "test"
@@ -65,7 +63,11 @@ jobs:
           test-code-path: golang
           test-cmd: |
             cd ../common && mvn -Prelease -DskipTests clean package -U
-            cd ../rocketmq-admintools && source bin/env.sh
+            cd ../rocketmq-admintools && \
+            curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && \
+            sed -i 's|http://|https://|g' /etc/yum.repos.d/CentOS-Base.repo && \
+            find . -type f -exec dos2unix {} + && \
+            source bin/env.sh
             cd ../golang && go get -u github.com/apache/rocketmq-clients/golang && gotestsum --junitfile ./target/surefire-reports/TEST-report.xml ./mqgotest/... -timeout 2m  -v
           job-id: 0
       - name: Publish Test Report
@@ -92,7 +94,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@5c8c81309e83b1fbbfdf31505ddf9c4a34a027cf
+      - uses: chi3316/rocketmq-test-tool@9d9eb9d604b28f89216570bb7caa494a000df0aa
         name: clean
         with:
           action: "clean"
