@@ -18,7 +18,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@3088e7f3efef45e74a3ef12e29d1b73aa4ab7da9
+      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -51,7 +51,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@3088e7f3efef45e74a3ef12e29d1b73aa4ab7da9
+      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
         name: e2e test
         with:
           action: "test"
@@ -90,7 +90,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@3088e7f3efef45e74a3ef12e29d1b73aa4ab7da9
+      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
         name: clean
         with:
           action: "clean"
