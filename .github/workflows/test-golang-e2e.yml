@@ -63,6 +63,7 @@ jobs:
           test-cmd: |
             cd ../common && mvn -Prelease -DskipTests clean package -U
             cd ../rocketmq-admintools && source bin/env.sh
+            export GOPROXY=https://goproxy.cn
             cd ../golang && go get -u github.com/apache/rocketmq-clients/golang && gotestsum --junitfile ./target/surefire-reports/TEST-report.xml ./mqgotest/... -timeout 2m  -v
           job-id: 0
       - name: Publish Test Report
