@@ -18,7 +18,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
+      - uses: chi3316/rocketmq-test-tool@44a9a6239a5f3f194fe918accd5a41662d9fc5d1
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -51,7 +51,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
+      - uses: chi3316/rocketmq-test-tool@44a9a6239a5f3f194fe918accd5a41662d9fc5d1
         name: e2e test
         with:
           action: "test"
@@ -63,6 +63,8 @@ jobs:
           test-cmd: |
             cd ../common && mvn -Prelease -DskipTests clean package -U
             cd ../rocketmq-admintools && source bin/env.sh
+            wget https://web-cjpdemo.oss-cn-guangzhou.aliyuncs.com/go1.22.6.linux-amd64.tar.gz && \
+            rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz
             export GOPROXY=https://goproxy.cn
             cd ../golang && go get -u github.com/apache/rocketmq-clients/golang && gotestsum --junitfile ./target/surefire-reports/TEST-report.xml ./mqgotest/... -timeout 2m  -v
           job-id: 0
@@ -90,7 +92,7 @@ jobs:
       matrix:
         version: [develop-94402c3e-906d-40ab-9161-7418164df551-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@bba9203e96079db4af06db4b27b4a19b93c0a931
+      - uses: chi3316/rocketmq-test-tool@44a9a6239a5f3f194fe918accd5a41662d9fc5d1
         name: clean
         with:
           action: "clean"
