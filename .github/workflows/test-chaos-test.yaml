@@ -51,7 +51,7 @@ jobs:
         with:
           name: chaos-test-report
           path: chaos-test-report/
-        continue-on-error: true
+        if: always()
   clean:
     if: always()
     name: Clean

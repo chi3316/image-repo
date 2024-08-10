@@ -2,8 +2,7 @@ name: E2E-golang
 
 on:
   push:
-    branches: your-branch
-  workflow_dispatch:
+    branches: main
 
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
