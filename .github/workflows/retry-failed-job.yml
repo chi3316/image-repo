@@ -6,12 +6,12 @@ on:
             - "main"
 
 jobs:
-    a-successful-step:
+    a-successful-job:
         runs-on: ubuntu-latest
         steps:
             - name: This step can passed succesfully
               run: sleep 10 && echo "Hello World!"
-    some-other-step:
+    some-other-job:
         runs-on: ubuntu-latest
         steps:
             - name: This step might fail
@@ -19,7 +19,8 @@ jobs:
               continue-on-error: true
 
     retry-on-failure:
-        if: failure()
+        needs: some-other-job
+        if: needs.some-other-job.result == 'failure' 
         runs-on: ubuntu-latest
         steps:
             - name: Retry the failed job
