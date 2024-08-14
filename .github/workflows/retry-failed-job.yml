@@ -27,4 +27,4 @@ jobs:
                 GH_REPO: ${{ github.repository }}
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
               run: |
-                  gh run rerun ${{ github.run_id }} --failed
+                  gh run rerun ${{ github.run_id }}

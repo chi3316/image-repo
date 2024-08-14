@@ -1,5 +1,4 @@
 name: Retry workflow
-
 on:
     workflow_dispatch:
         inputs:
