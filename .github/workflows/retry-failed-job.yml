@@ -1,0 +1,27 @@
+name: Retry Failed Job
+
+on:
+    push:
+        branches:
+            - "main"
+
+jobs:
+    a-successful-step:
+        runs-on: ubuntu-latest
+        steps:
+            - name: This step can passed succesfully
+              run: sleep 10 && echo "Hello World!"
+    some-other-step:
+        runs-on: ubuntu-latest
+        steps:
+            - name: This step might fail
+              run: sleep 10 && exit 1
+              continue-on-error: true
+
+    retry-on-failure:
+        if: failure()
+        runs-on: ubuntu-latest
+        steps:
+            - name: Retry the failed job
+              run: |
+                  gh run rerun ${{ github.run_id }} --failed
