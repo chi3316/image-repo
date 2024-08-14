@@ -24,6 +24,7 @@ jobs:
         steps:
             - name: Retry the failed job
               env:
+                GH_REPO: ${{ github.repository }}
                 GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
               run: |
                   gh run rerun ${{ github.run_id }} --failed
