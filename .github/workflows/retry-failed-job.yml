@@ -3,7 +3,7 @@ name: Retry Failed Job
 on:
     push:
         branches:
-            - "main"
+            - "your-branch"
 
 jobs:
     a-successful-job:
