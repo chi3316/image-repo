@@ -10,7 +10,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: This step always fails
-              run: exit 1
+              run: sleep 10 && exit 1
 
     retry-on-failure:
         if: failure() && fromJSON(github.run_attempt) < 3
@@ -20,4 +20,4 @@ jobs:
             - env:
                   GH_REPO: ${{ github.repository }}
                   GH_TOKEN: ${{ github.token }}
-              run: gh workflow run retry-workflow.yaml -F run_id=${{ github.run_id }}
+              run: gh workflow run retry-workflow.yml -F run_id=${{ github.run_id }}
