@@ -1,0 +1,23 @@
+name: Feature Branch - Push
+
+on:
+    push:
+        branches:
+            - "main"
+
+jobs:
+    some-other-step:
+        runs-on: ubuntu-latest
+        steps:
+            - name: This step always fails
+              run: exit 1
+
+    retry-on-failure:
+        if: failure() && fromJSON(github.run_attempt) < 3
+        needs: [some-other-step]
+        runs-on: ubuntu-latest
+        steps:
+            - env:
+                  GH_REPO: ${{ github.repository }}
+                  GH_TOKEN: ${{ github.token }}
+              run: gh workflow run retry-workflow.yaml -F run_id=${{ github.run_id }}
