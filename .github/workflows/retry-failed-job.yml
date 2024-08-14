@@ -23,5 +23,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Retry the failed job
+              env:
+                GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
               run: |
                   gh run rerun ${{ github.run_id }} --failed
