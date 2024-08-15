@@ -10,18 +10,14 @@ permissions:
 jobs:
     some-other-step:
         runs-on: ubuntu-latest
+        env:
+            GH_REPO: ${{ github.repository }}
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - name: This step always fails
               run: sleep 20
-
-    retry-on-failure:
-        if: needs.some-other-step.result == 'failure' && fromJSON(github.run_attempt) < 4
-        needs: [some-other-step]
-        runs-on: ubuntu-latest
-        steps:
-            - env:
-                  GH_REPO: ${{ github.repository }}
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: | 
-                echo ${{github.run_attempt}}
+            - name: Retry if failed
+              if: failure() && fromJSON(github.run_attempt) < 4
+              run: |
+                echo "Retrying..."
                 gh workflow run retry-workflow.yml -F run_id=${{ github.run_id }}
