@@ -15,7 +15,7 @@ jobs:
             GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         steps:
             - name: This step always fails
-              run: sleep 20
+              run: sleep 10 && exit 1
             - name: Retry if failed
               if: failure() && fromJSON(github.run_attempt) < 4
               run: |
