@@ -15,7 +15,7 @@ jobs:
               run: sleep 20
 
     retry-on-failure:
-        if: failure() && fromJSON(github.run_attempt) < 4
+        if: needs.some-other-step.result == 'failure' && fromJSON(github.run_attempt) < 4
         needs: [some-other-step]
         runs-on: ubuntu-latest
         steps:
