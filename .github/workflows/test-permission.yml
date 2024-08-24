@@ -2,7 +2,7 @@ name: Check actor permission
 on:
   pull_request:
   push:
-    branches: main
+    branches: your-branch
 jobs:
   test:
     name: "bazel-compile (${{ matrix.os }})"

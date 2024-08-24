@@ -3,7 +3,7 @@ name: Feature Branch - Push
 on:
     push:
         branches:
-            - "main"
+            - your-branch
 permissions:
   actions: write
   contents: write
