@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.3]
     steps:
-      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@fbbcdcb8c3d9bdf2c2a5c64585b648cf2f183cac
+      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@3948e016e30c588a6d4ab48455ac0d326e2bcf15
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@fbbcdcb8c3d9bdf2c2a5c64585b648cf2f183cac
+      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@3948e016e30c588a6d4ab48455ac0d326e2bcf15
         name: Chaos test
         with:
           action: "chaos-test"
@@ -55,7 +55,7 @@ jobs:
           openchaos-driver: ".github/chaos-configs/driver.yaml"
           chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yaml"
           fault-scheduler-interval: "30"
-          openchaos-args: "-t 240"
+          openchaos-args: "-t 180"
           fault-durition: "30"
           node-lable: "app.kubernetes.io/name=broker"
           meta-node-lable: "app.kubernetes.io/name=nameserver"
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@fbbcdcb8c3d9bdf2c2a5c64585b648cf2f183cac
+      - uses: chi3316/rocketmq-test-tool/chaos-test-runner@3948e016e30c588a6d4ab48455ac0d326e2bcf15
         name: clean
         with:
           action: "clean"
