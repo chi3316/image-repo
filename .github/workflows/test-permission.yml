@@ -1,0 +1,33 @@
+name: Check actor permission
+on:
+  pull_request:
+  push:
+    branches: main
+jobs:
+  test:
+    name: "bazel-compile (${{ matrix.os }})"
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: bazel build --config=remote //...
+      - name: Run Tests
+        run: bazel test --config=remote //...
+      - name: Check if GITHUB_TOKEN has write permission
+        id: check-permission
+        run: |
+          PERMISSION=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/collaborators/${{ github.actor }}/permission | jq -r .permission)
+          echo "PERMISSION=$PERMISSION" >> $GITHUB_ENV
+      - name: Retry if failed
+        # if it failed , retry 2 times at most
+        if: failure() && fromJSON(github.run_attempt) < 3 && env.PERMISSION != 'read'
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Attempting to retry workflow..."
+          gh workflow run rerun-workflow.yml -F run_id=${{ github.run_id }}
