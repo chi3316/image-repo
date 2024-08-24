@@ -11,7 +11,6 @@ spec:
       - ${ns}
     labelSelectors:
       "app.kubernetes.io/name": "broker"
-      "app.kubernetes.io/instance": ${app}
   delay:
     latency: "100ms"
   duration: "30s"

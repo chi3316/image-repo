@@ -64,7 +64,6 @@ jobs:
         with:
           name: chaos-test-report
           path: chaos-test-report/
-        if: always()
   clean:
     if: always()
     name: Clean
