@@ -21,8 +21,8 @@ jobs:
           action: "deploy"
           ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
           test-version: "v0.1"
-          chart-git: "https://mirror.ghproxy.com/https://github.com/apache/rocketmq-docker.git"
-          chart-branch: "master"
+          chart-git: "https://mirror.ghproxy.com/https://github.com/chi3316/rocketmq-docker"
+          chart-branch: "chaos-test"
           chart-path: "./rocketmq-k8s-helm"
           job-id: ${{ strategy.job-index }}
           helm-values: |
