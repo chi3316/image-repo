@@ -2,7 +2,7 @@ name: Test chaos-test
 on:
   push:
     branches:
-      - main
+      - your-branch
 
 env:
   DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh

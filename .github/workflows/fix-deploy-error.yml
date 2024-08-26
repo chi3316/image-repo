@@ -2,7 +2,7 @@ name: Fix deploy rocketmq
 
 on:
   push:
-    branches: your-branch
+    branches: main
 
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
