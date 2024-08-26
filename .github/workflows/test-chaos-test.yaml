@@ -60,6 +60,7 @@ jobs:
           node-lable: "app.kubernetes.io/name=broker"
           meta-node-lable: "app.kubernetes.io/name=nameserver"
       - name: Upload test report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: chaos-test-report
