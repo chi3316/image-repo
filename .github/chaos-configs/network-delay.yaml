@@ -5,7 +5,7 @@ metadata:
 spec:
   action: delay
   mode: fixed
-  value: "2"
+  value: "1"
   selector:
     namespaces:
       - ${ns}
