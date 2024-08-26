@@ -5,7 +5,7 @@ metadata:
 spec:
   action: pod-failure
   mode: fixed
-  value: "2"
+  value: "1"
   duration: '30s'
   selector:
     namespaces:
