@@ -13,7 +13,7 @@ jobs:
     if: ${{ success() }}
     name: Deploy RocketMQ
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 720
     strategy:
       matrix:
         version: [develop-685d5fc4-1e2d-4bfb-8b85-ec47522d6d3c-ubuntu]
