@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 60
     strategy:
       matrix:
-        version: [develop-685d5fc4-1e2d-4bfb-8b85-ec47522d6d3c-ubuntu]
+        version: [develop-29805b39-1daa-44ba-9d72-0a4e56a8c025-ubuntu]
     steps:
       - uses: chi3316/rocketmq-test-tool@44a9a6239a5f3f194fe918accd5a41662d9fc5d1
         name: Deploy rocketmq
@@ -50,3 +50,4 @@ jobs:
 # develop-4d30fa42-47cc-4f9f-ab52-cf33765efc96-ubuntu
 # develop-a6f9d60d-e947-4549-a9b6-38e2c15cd69e-ubuntu
 # develop-621ebe12-afcf-4a9b-8fe7-4f5a5a3d905d-ubuntu 
+# latest : develop-29805b39-1daa-44ba-9d72-0a4e56a8c025-ubuntu
