@@ -13,7 +13,7 @@ jobs:
     if: ${{ success() }}
     name: Deploy RocketMQ
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 10
     strategy:
       matrix:
         version: [develop-685d5fc4-1e2d-4bfb-8b85-ec47522d6d3c-ubuntu]
@@ -24,7 +24,7 @@ jobs:
           action: "deploy"
           ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
           test-version: "${{ matrix.version }}"
-          chart-git: "https://mirror.ghproxy.com/https://github.com/apache/rocketmq-docker"
+          chart-git: "https://mirror.ghproxy.com/https://github.com/chi3316/rocketmq-docker"
           chart-branch: "master"
           chart-path: "./rocketmq-k8s-helm"
           job-id: ${{ strategy.job-index }}
