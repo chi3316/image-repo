@@ -18,14 +18,14 @@ jobs:
       matrix:
         version: [develop-685d5fc4-1e2d-4bfb-8b85-ec47522d6d3c-ubuntu]
     steps:
-      - uses: chi3316/rocketmq-test-tool@44a9a6239a5f3f194fe918accd5a41662d9fc5d1
+      - uses: apache/rocketmq-test-tool@7d84d276ad7755b1dc5cf9657a7a9bff6ae6d288
         name: Deploy rocketmq
         with:
           action: "deploy"
           ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
           test-version: "${{ matrix.version }}"
-          chart-git: "https://mirror.ghproxy.com/https://github.com/chi3316/rocketmq-docker"
-          chart-branch: "fix-e2e"
+          chart-git: "https://mirror.ghproxy.com/https://github.com/apache/rocketmq-docker"
+          chart-branch: "master"
           chart-path: "./rocketmq-k8s-helm"
           job-id: ${{ strategy.job-index }}
           helm-values: |
