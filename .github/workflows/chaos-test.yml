@@ -2,7 +2,7 @@ name: CHAOS-TEST
 
 on:
   push:
-    branches: [main-false]
+    branches: [main]
 
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
@@ -52,7 +52,7 @@ jobs:
         with:
           name: rocketmq
           path: rocketmq
-        # 在这里，修改启动脚本，添加ssh
+        # 在这里，修改启动脚本，一起启动sshd
         # rocketmq/rocketmq*/rocketmq*/bin/mqbroker   rocketmq/rocketmq*/rocketmq*/bin/mqnamesrv
       - name: update start script
         run: |
@@ -62,9 +62,25 @@ jobs:
 
       - name: docker-login
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login registry.cn-guangzhou.aliyuncs.com --username=aliyun3982714546 --password-stdin
+      - name: append to Dockerfile
+      # 修改Dockerfile，在镜像中添加sshd服务
+        run: |
+          cat <<EOL >> Dockerfile-${{ matrix.base-image }}
+          RUN apt-get update && \\
+              apt-get install -y openssh-server && \\
+              apt-get clean
+
+          RUN mkdir /var/run/sshd && \\
+              mkdir -p /root/.ssh && \\
+              chmod 700 /root/.ssh && \\
+              ssh-keygen -A
+
+          RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
+
+          RUN passwd -d root
+          EOL
       - name: Build and save docker images
         id: build-images
-        # 可以在这里，修改Dockerfile，在镜像中添加sshd服务
         run: |
           cd rocketmq-docker/image-build-ci
           version=${{ github.event.pull_request.number || github.ref_name }}-$(uuidgen)
@@ -76,7 +92,6 @@ jobs:
         with:
           name: versionlist
           path: rocketmq-docker/image-build-ci/versionlist/*
-
 
   list-version:
     if: always()
