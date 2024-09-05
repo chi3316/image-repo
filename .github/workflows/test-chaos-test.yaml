@@ -53,10 +53,10 @@ jobs:
           ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
           job-id: ${{ strategy.job-index }}
           openchaos-driver: ".github/chaos-configs/driver.yaml"
-          chaos-mesh-fault-file: ".github/chaos-configs/pod-failure.yml"
-          fault-scheduler-interval: "60"
-          openchaos-args: "-t 600"
-          fault-durition: "60"
+          chaos-mesh-fault-file: ".github/chaos-configs/network-delay.yml"
+          fault-scheduler-interval: "30"
+          openchaos-args: "-t 180"
+          fault-durition: "30"
           node-lable: "app.kubernetes.io/name=broker"
           meta-node-lable: "app.kubernetes.io/name=nameserver"
       - name: Upload test report
