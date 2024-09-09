@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.3]
     steps:
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@eaab2dc919291b5ee418fc3e837cd02f41214c68
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@edac77929cec744fa220e170b8e2b17ddabe5378
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@eaab2dc919291b5ee418fc3e837cd02f41214c68
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@edac77929cec744fa220e170b8e2b17ddabe5378
         name: Chaos test
         with:
           action: "performance-benchmark"
@@ -67,7 +67,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@eaab2dc919291b5ee418fc3e837cd02f41214c68
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@edac77929cec744fa220e170b8e2b17ddabe5378
         name: clean
         with:
           action: "clean"
