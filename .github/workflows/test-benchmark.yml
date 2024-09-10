@@ -50,7 +50,7 @@ jobs:
           action: "performance-benchmark"
           ask-config: "${{ secrets.ASK_CONFIG_VIRGINA }}"
           job-id: ${{ strategy.job-index }}
-          test-time: "180"
+          test-time: "1200"
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
