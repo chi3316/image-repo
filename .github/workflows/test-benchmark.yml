@@ -15,7 +15,7 @@ jobs:
       matrix:
         version: [v2.3]
     steps:
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@231932874b874825c02b537554a9fe9d8514c644
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@9a5240c260a5d26e6ff11f00a56056dae0491c4c
         name: Deploy rocketmq
         with:
           action: "deploy"
@@ -44,7 +44,7 @@ jobs:
     needs: deploy
     timeout-minutes: 60
     steps:
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@231932874b874825c02b537554a9fe9d8514c644
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@9a5240c260a5d26e6ff11f00a56056dae0491c4c
         name: Performance benchmark
         with:
           action: "performance-benchmark"
@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: chi3316/rocketmq-test-tool/benchmark-runner@231932874b874825c02b537554a9fe9d8514c644
+      - uses: chi3316/rocketmq-test-tool/benchmark-runner@9a5240c260a5d26e6ff11f00a56056dae0491c4c
         name: clean
         with:
           action: "clean"
