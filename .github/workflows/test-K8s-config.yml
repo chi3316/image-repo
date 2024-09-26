@@ -18,8 +18,8 @@ jobs:
                 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
             - name: Config K8s
+            # encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
               run: |
-                # encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
                 mkdir -p ${HOME}/.kube
                 
                 secret=${{ env.SECRET }}
