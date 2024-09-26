@@ -13,7 +13,7 @@ jobs:
               run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
             - name: Config K8s
               run: |
-                encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64)
+                encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
                 echo "ENCODED_ASK_CONFIG_VIRGINA=$encoded_value" >> $GITHUB_ENV
                 mkdir -p ${HOME}/.kube
                 kube_config=$(echo "${{ env.ENCODED_ASK_CONFIG_VIRGINA }}" | base64 -d)
