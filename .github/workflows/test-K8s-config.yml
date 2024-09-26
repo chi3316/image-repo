@@ -9,10 +9,11 @@ jobs:
     test-config:
         runs-on: ubuntu-latest
         steps:
-            # - name: Install kubectl
-            #   run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+            - name: Install kubectl
+              run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
             - name: Config K8s
               run: |
+                mkdir -p ${HOME}/.kube
                 kube_config=$(echo "${ASK_CONFIG}")
                 echo "${kube_config}" > ${HOME}/.kube/config
             - name: Check connection
