@@ -2,10 +2,10 @@ name: Performance Benchmark
 on:
   push:
     branches:
-      - main
+      - your-branch
 
 env:
-  DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ssh
+  DOCKER_REPO: registry.cn-guangzhou.aliyuncs.com/cc-aliyun/rocketmq-ci
 
 jobs:
   deploy:
@@ -13,7 +13,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        version: [v2.3]
+        version: [feat-benchmark-021028f0-7d39-42c4-bf3d-2937af0f83da-ubuntu]
     steps:
       - uses: chi3316/rocketmq-test-tool/benchmark-runner@008b17e3f4ef48c7eca4f7100ed38749d609a946
         name: Deploy rocketmq
