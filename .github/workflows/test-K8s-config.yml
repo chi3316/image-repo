@@ -10,14 +10,20 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Install kubectl
-              run: curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+              run: |
+                curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
             - name: Config K8s
               run: |
+                # Encode the secret and ensure it's single-line without newlines
                 encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
                 echo "ENCODED_ASK_CONFIG_VIRGINA=$encoded_value" >> $GITHUB_ENV
+                
                 mkdir -p ${HOME}/.kube
+                
                 kube_config=$(echo "${{ env.ENCODED_ASK_CONFIG_VIRGINA }}" | base64 -d)
                 echo "${kube_config}" > ${HOME}/.kube/config
+
             - name: Check connection
               run: kubectl get nodes
-        
