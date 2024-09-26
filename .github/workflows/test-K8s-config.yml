@@ -14,7 +14,7 @@ jobs:
             - name: Config K8s
               run: |
                 mkdir -p ${HOME}/.kube
-                kube_config=$(echo "${ASK_CONFIG}")
+                kube_config=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}")
                 echo "${kube_config}" > ${HOME}/.kube/config
             - name: Check connection
               run: kubectl get nodes
