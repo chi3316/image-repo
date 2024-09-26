@@ -5,6 +5,9 @@ on:
         branches:
             - main
 
+env:
+    SECRET: $(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
+
 jobs:
     test-config:
         runs-on: ubuntu-latest
@@ -16,10 +19,11 @@ jobs:
 
             - name: Config K8s
               run: |
-                encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
+                # encoded_value=$(echo "${{ secrets.ASK_CONFIG_VIRGINA }}" | base64 -w 0)
                 mkdir -p ${HOME}/.kube
                 
-                kube_config=$(echo $encoded_value | base64 -d)
+                secret=${{ env.SECRET }}
+                kube_config=$(echo $secret | base64 -d)
                 echo "${kube_config}" > ${HOME}/.kube/config
 
             - name: Check connection
