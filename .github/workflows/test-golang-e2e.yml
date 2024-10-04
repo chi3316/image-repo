@@ -2,7 +2,7 @@ name: E2E-golang
 
 on:
   push:
-    branches: your-branch
+    branches: main
 
 env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
@@ -39,6 +39,9 @@ jobs:
                 tag: ${{ matrix.version }}
             proxy:
               image:
+                repository: ${{env.DOCKER_REPO}}
+                tag: ${{ matrix.version }}
+              controller: 
                 repository: ${{env.DOCKER_REPO}}
                 tag: ${{ matrix.version }}
   test-e2e-golang:
